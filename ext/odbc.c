@@ -1872,7 +1872,7 @@ set_err(const char *msg, int warn)
     a = rb_ary_new2(1);
     rb_ary_push(a, (v));
     CVAR_SET(Cobj, warn ? IDatatinfo : IDataterror, a);
-    return STR2CSTR(v);
+    return RSTRING_PTR(v);
 }
 
 /*
@@ -1950,14 +1950,14 @@ get_err_or_info(SQLHENV henv, SQLHDBC hdbc, SQLHSTMT hstmt, int isinfo)
 		a = rb_ary_new();
 	    }
 	    rb_ary_push(a, (v));
-	    tracemsg(1, fprintf(stderr, "  | %s\n", STR2CSTR(v)););
+	    tracemsg(1, fprintf(stderr, "  | %s\n", RSTRING_PTR(v)););
 	}
     }
     CVAR_SET(Cobj, isinfo ? IDatatinfo : IDataterror, a);
     if (isinfo) {
 	return NULL;
     }
-    return (v0 == Qnil) ? NULL : STR2CSTR(v0);
+    return (v0 == Qnil) ? NULL : RSTRING_PTR(v0);
 }
 
 #if defined(HAVE_SQLINSTALLERERROR) || (defined(UNICODE) && defined(HAVE_SQLINSTALLERERRORW))
@@ -2046,11 +2046,11 @@ get_installer_err()
 		a = rb_ary_new();
 	    }
 	    rb_ary_push(a, (v));
-	    tracemsg(1, fprintf(stderr, "  | %s\n", STR2CSTR(v)););
+	    tracemsg(1, fprintf(stderr, "  | %s\n", RSTRING_PTR(v)););
 	}
     }
     CVAR_SET(Cobj, IDataterror, a);
-    return (v0 == Qnil) ? NULL : STR2CSTR(v0);
+    return (v0 == Qnil) ? NULL : RSTRING_PTR(v0);
 }
 #endif
 
